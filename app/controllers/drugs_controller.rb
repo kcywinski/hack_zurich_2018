@@ -4,6 +4,11 @@ class DrugsController < ApplicationController
     render json: { all: Drug.all.count, low_amount_count: low_amount.count, low_amount: low_amount }
   end
 
+  def destroy
+    drug = Drug.find_by(swiss_id: params[:id])
+    render json: drug.destroy ? :ok : :unprocessable_entity
+  end
+
   def full_list
     render json: Drug.all
   end

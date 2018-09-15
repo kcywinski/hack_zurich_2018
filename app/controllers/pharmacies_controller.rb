@@ -112,10 +112,11 @@ class PharmaciesController < ApplicationController
 
   def index2
     begin  
-      pharmacies = ApiRequest.new("care-providers?category=5b33a5142c9dd24355626305&nearLimit=3&neaerLat=#{pharmacies_params[:lat]}&nearLng=#{pharmacies_params[:long]}").process      
+      pharmacies = ApiRequest.new("care-providers?category=5b33a5142c9dd24355626305&nearLimit=3&nearLat=#{pharmacies_params[:lat]}&nearLng=#{pharmacies_params[:long]}").process      
     rescue StandardError      
       []
     end    
+    render json: JSON.parse(pharmacies)&.fetch('result')
   end
 
   private
