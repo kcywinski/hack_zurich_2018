@@ -9,24 +9,21 @@ class DrugsController < ApplicationController
   end
 
   def take_a_pill
-    drug = Drug.find_by(params[:swiss_id])
-    tabs_number = drug.tabs_number - 1    
-    if tabs_number == 0
-      packs_amount = drug.packs_amount - 1
-      tabs_number = 6
+    drug = Drug.find_by(swiss_id: params[:id])
+    if drug.tabs_number > 0
+      tabs_number = drug.tabs_number - 1            
+      drug.update(tabs_number: tabs_number)
     end
-    drug.update(tabs_number: tabs_number, packs_amount: packs_amount)
-    render json: { is_empty: drug.reload.packs_amount == 0 } 
+    render json: { is_empty: tabs_number == 0 } 
   end
   
   def dosage    
     render json: LookupDrugByName.new(params[:swissid]).process.dosage
   end
 
-  def create    
-    drug_name = LookupDrugByName.new(drug_params[:swiss_id]).process.drug_name
-    drug = Drug.find_or_create_by(drug_params.merge(name: drug_name))
-    drug.update(packs_amount: (drug&.packs_amount || 0) + 1)  
+  def create        
+    drug = Drug.find_or_create_by(drug_params)
+    drug.update(tabs_number: (drug&.tabs_number || 0) + drug_params[:tabs_number].to_i)  
     render json: drug.save ? :ok : :unprocessable_entity
   end
 

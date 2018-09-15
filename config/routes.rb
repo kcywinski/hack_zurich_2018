@@ -6,4 +6,7 @@ Rails.application.routes.draw do
     get :full_list, on: :collection
     post :take_a_pill, on: :member
   end
+  resources :pharmacies, only: :index do
+    get :index2, on: :collection
+  end
 end

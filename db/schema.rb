@@ -17,10 +17,9 @@ ActiveRecord::Schema.define(version: 2018_09_14_232805) do
 
   create_table "drugs", force: :cascade do |t|
     t.integer "swiss_id"
-    t.integer "name"
+    t.string "name"
     t.string "pack_type"
     t.integer "tabs_number", default: 0
-    t.integer "packs_amount", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

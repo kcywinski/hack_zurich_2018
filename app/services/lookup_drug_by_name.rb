@@ -6,7 +6,7 @@ class LookupDrugByName
   end
 
   def process
-    @drug_name = JSON.parse(ApiRequest.new("drugs/#{@id}/").process)['title']
+    # @drug_name = JSON.parse(ApiRequest.new("drugs/#{@id}/").process)['title']
     begin
       @drugs = ApiRequest.new("drugs/#{@id}/info/patient").process      
     rescue StandardError      
@@ -24,6 +24,7 @@ class LookupDrugByName
 
   def find_drug_types
     drug_types = @drugs.match(/(<span>Packungen<\/span>)(.*)(<span>Zulassungsinhaberin<\/span>)/)
+    p drug_types
     return present_drug('One pack:standard dose') if drug_types.blank?
     res = []
     drug_types[2]
@@ -34,7 +35,7 @@ class LookupDrugByName
   end
 
   def present_drug(drug, index)
-    drug_key, drug_dosage = drug.split(':')
+    drug_key, drug_dosage = drug.split(':').map { |x| x.split(';') }.flatten
     { type: drug_key, dosage: drug_dosage, tabs_number: 6 + 2*index}
   end
 end
