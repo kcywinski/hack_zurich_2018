@@ -16,9 +16,11 @@ ActiveRecord::Schema.define(version: 2018_09_14_232805) do
   enable_extension "plpgsql"
 
   create_table "drugs", force: :cascade do |t|
-    t.integer "amount_left"
-    t.integer "swissmedic_id"
-    t.string "name"
+    t.integer "swiss_id"
+    t.integer "name"
+    t.string "pack_type"
+    t.integer "tabs_number", default: 0
+    t.integer "packs_amount", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

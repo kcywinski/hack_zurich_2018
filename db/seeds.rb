@@ -1,4 +1,5 @@
+Drug.destroy_all
 [
-  ['Headache drug', 42], 
-  ['Sleeping pills', 13]
-].map { |name, amount| Drug.create(name: name, amount_left: amount, swissmedic_id: amount*amount) }
+  ['Carbostesin® 0,5% hyperbar', 45590, 5], 
+  ['Amoxicillin Axapharm, dispergierbare Tabletten', 66428, 1]
+].map { |name, swiss_id, amount| Drug.create(name: name, swiss_id: amount*amount) }

@@ -1,3 +1,3 @@
 class Drug < ApplicationRecord
-  scope :low_amount, -> { where('amount_left < 5') }
+  scope :low_amount, -> { where('packs_amount < 3') }
 end

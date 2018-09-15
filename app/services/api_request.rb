@@ -12,12 +12,8 @@ class ApiRequest
     request.on_complete do |response|
       if response.success?
         return response.body
-      elsif response.timed_out?        
-        p "got a time out"
-      elsif response.code == 0        
-        p response.return_message
-      else        
-        p "HTTP request failed: " + response.code.to_s
+      else
+        raise StandardError      
       end
     end
     request.run
