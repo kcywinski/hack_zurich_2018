@@ -11,7 +11,7 @@ class ApiRequest
     )    
     request.on_complete do |response|
       if response.success?
-        return JSON.parse(response.body)
+        return response.body
       elsif response.timed_out?        
         p "got a time out"
       elsif response.code == 0        

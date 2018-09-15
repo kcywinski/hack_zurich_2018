@@ -3,8 +3,8 @@ class DrugsController < ApplicationController
     render json: { all: Drug.all.count, low_amount: Drug.low_amount.count }
   end
   
-  def by_name
-    render json: LookupDrugByName.new(params[:name]).process
+  def dosage
+    render json: LookupDrugByName.new(params[:swissid]).process
   end
 
   def create    
