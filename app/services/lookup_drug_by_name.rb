@@ -24,7 +24,7 @@ class LookupDrugByName
 
   def find_drug_types
     drug_types = @drugs.match(/(<span>Packungen<\/span>)(.*)(<span>Zulassungsinhaberin<\/span>)/)      
-    return present_drug('One pack:standard dose', 0) if drug_types.blank?
+    return [present_drug('One pack:standard dose', 0)] if drug_types.blank?
     # p drug_types[2]
     res = []
     drugs = HTMLEntities.new(:html4).decode(drug_types[2])

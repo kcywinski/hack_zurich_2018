@@ -7,6 +7,6 @@ Rails.application.routes.draw do
     post :take_a_pill, on: :member
   end
   resources :pharmacies, only: :index do
-    get :index2, on: :collection
+    # get :index2, on: :collection
   end
 end
